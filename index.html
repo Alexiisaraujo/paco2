@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>PACO — Tu mascota virtual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ░░ WELCOME ░░ -->
+<div id="screen-welcome" class="screen active">
+  <div class="welcome-card">
+    <div class="welcome-orb"></div>
+    <div class="welcome-top">
+      <div class="app-chip">✦ mascota virtual</div>
+      <h1 class="app-title">PACO</h1>
+      <p class="app-sub">Tu nuevo mejor amigo digital</p>
+    </div>
+    <div class="egg-stage">
+      <div class="egg-glow-ring"></div>
+      <div class="welcome-egg" id="welcome-egg">🥚</div>
+      <div class="egg-shadow"></div>
+    </div>
+    <div class="welcome-form">
+      <label class="form-label">¿Cómo se llamará?</label>
+      <div class="input-wrap">
+        <span class="input-icon">✏️</span>
+        <input id="name-input" type="text" maxlength="12"
+               placeholder="Nombre de tu Paco..."
+               autocomplete="off" spellcheck="false"/>
+      </div>
+      <button id="btn-hatch" class="hatch-btn">
+        <span class="hatch-btn-text">¡Hacer eclosionar!</span>
+        <span class="hatch-btn-icon">🥚</span>
+      </button>
+    </div>
+    <div class="welcome-features">
+      <div class="feat"><span>🍖</span>Aliméntalo</div>
+      <div class="feat"><span>🎮</span>Juega</div>
+      <div class="feat"><span>💤</span>Hazlo dormir</div>
+      <div class="feat"><span>💊</span>Cuídalo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ GAME ░░ -->
+<div id="screen-game" class="screen">
+  <div class="mood-bg" id="mood-bg"></div>
+
+  <header class="top-bar">
+    <div class="top-left">
+      <div class="evo-pill" id="evo-pill">🥚 Huevo</div>
+    </div>
+    <div class="top-center">
+      <div class="paco-name" id="paco-name">PACO</div>
+    </div>
+    <div class="top-right">
+      <div class="age-badge">
+        <span class="age-icon">⏱</span>
+        <span id="timer-val">00:00</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="pet-stage">
+    <div class="mood-aura" id="mood-aura"></div>
+    <div class="thought-bubble" id="thought-bubble">
+      <span id="thought-text">...</span>
+    </div>
+    <div class="pet-wrap" id="pet-wrap">
+      <div class="pet-shadow"></div>
+      <div class="pet-body" id="pet-body">
+        <div class="pet-face" id="pet-face">😊</div>
+        <div class="action-sparks" id="action-sparks"></div>
+      </div>
+    </div>
+    <div class="mood-strip" id="mood-strip">
+      <span id="mood-label">¡Feliz y contento!</span>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stat-card" id="sc-hunger">
+      <div class="stat-header">
+        <span class="stat-emoji">🍖</span>
+        <span class="stat-name">Hambre</span>
+        <span class="stat-num" id="num-hunger">100</span>
+      </div>
+      <div class="stat-track"><div class="stat-prog hunger-prog" id="prog-hunger"></div></div>
+    </div>
+    <div class="stat-card" id="sc-happiness">
+      <div class="stat-header">
+        <span class="stat-emoji">😄</span>
+        <span class="stat-name">Felicidad</span>
+        <span class="stat-num" id="num-happiness">100</span>
+      </div>
+      <div class="stat-track"><div class="stat-prog happiness-prog" id="prog-happiness"></div></div>
+    </div>
+    <div class="stat-card" id="sc-energy">
+      <div class="stat-header">
+        <span class="stat-emoji">⚡</span>
+        <span class="stat-name">Energía</span>
+        <span class="stat-num" id="num-energy">100</span>
+      </div>
+      <div class="stat-track"><div class="stat-prog energy-prog" id="prog-energy"></div></div>
+    </div>
+    <div class="stat-card" id="sc-health">
+      <div class="stat-header">
+        <span class="stat-emoji">❤️</span>
+        <span class="stat-name">Salud</span>
+        <span class="stat-num" id="num-health">100</span>
+      </div>
+      <div class="stat-track"><div class="stat-prog health-prog" id="prog-health"></div></div>
+    </div>
+  </section>
+
+  <section class="actions-section">
+    <button class="act-btn feed-btn"  id="btn-feed"  onclick="Actions.feed()">
+      <div class="act-glow"></div>
+      <span class="act-icon">🍖</span>
+      <span class="act-label">Alimentar</span>
+      <div class="act-cd-ring" id="cd-feed"></div>
+    </button>
+    <button class="act-btn play-btn"  id="btn-play"  onclick="Actions.play()">
+      <div class="act-glow"></div>
+      <span class="act-icon">🎮</span>
+      <span class="act-label">Jugar</span>
+      <div class="act-cd-ring" id="cd-play"></div>
+    </button>
+    <button class="act-btn sleep-btn" id="btn-sleep" onclick="Actions.sleep()">
+      <div class="act-glow"></div>
+      <span class="act-icon">😴</span>
+      <span class="act-label">Dormir</span>
+      <div class="act-cd-ring" id="cd-sleep"></div>
+    </button>
+    <button class="act-btn heal-btn"  id="btn-heal"  onclick="Actions.heal()">
+      <div class="act-glow"></div>
+      <span class="act-icon">💊</span>
+      <span class="act-label">Curar</span>
+      <div class="act-cd-ring" id="cd-heal"></div>
+    </button>
+  </section>
+
+  <div class="dead-overlay" id="dead-overlay" style="display:none;">
+    <div class="dead-card">
+      <div class="dead-emoji">💀</div>
+      <h2 class="dead-title">Paco descansó</h2>
+      <p class="dead-sub">Vivió <span id="dead-age">00:00</span><br/>con mucho amor 💙</p>
+      <button class="restart-btn" onclick="Game.reset()">🔄 Nuevo Paco</button>
+    </div>
+  </div>
+
+  <div class="notif-stack" id="notif-stack"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
